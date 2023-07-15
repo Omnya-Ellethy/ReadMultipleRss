@@ -14,8 +14,8 @@ namespace MultipleRssReader.Pages
         public List<XmlFeedItem> ContentCollection { get; set; } = new();
         public int PageSize { get; set; } = 20;
         public int PageNumber { get; set; } = 1;
-        public int TotalItems { get; set; } = 1;
-        public int TotalPages { get; set; } = 1;
+        public int TotalItems { get; set; } 
+        public int TotalPages { get; set; } 
         public int CurrentPage { get; set; } = 1;
 
 
@@ -26,19 +26,17 @@ namespace MultipleRssReader.Pages
 
         public async Task<IActionResult> OnGetAsync(string url, int pageNumber = 1)
         {
-            PageNumber = pageNumber;
-
             if (string.IsNullOrEmpty(url))
             {
                 return NotFound();
             }
 
+            PageNumber = pageNumber;
             var xmlContent = await FetchContent(url);
             ContentCollection = ParseContent(xmlContent);
             TotalItems = ContentCollection.Count;
             TotalPages = (int)Math.Ceiling((double)TotalItems / PageSize);
             CurrentPage = PageNumber;
-
 
             ContentCollection = ContentCollection
                 .Skip((PageNumber - 1) * PageSize)
@@ -66,7 +64,6 @@ namespace MultipleRssReader.Pages
         private List<XmlFeedItem> ParseContent(string xmlContent)
         {
             var doc = XDocument.Parse(xmlContent);
-
 
             return doc.Descendants("item")
                 .Select(item => new XmlFeedItem

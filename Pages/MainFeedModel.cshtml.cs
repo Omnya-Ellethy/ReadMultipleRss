@@ -61,7 +61,6 @@ namespace MultipleRssReader.Pages
                 }
                 else
                 {
-                    RedirectToPage("/Error");
                     return string.Empty; // Return a default value in case of error
                 }
             }
@@ -91,9 +90,9 @@ namespace MultipleRssReader.Pages
 
     public class MainFeedItem
     {
-    public string? Text { get; set; }
-    public string? XmlUrl { get; set; }
-    public string? HtmlUrl { get; set; }
+        public string? Text { get; set; }
+        public string? XmlUrl { get; set; }
+        public string? HtmlUrl { get; set; }
     }
 }
 
